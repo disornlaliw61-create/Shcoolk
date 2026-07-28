@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: 'Kanit', sans-serif; background-color: #f4f4f4; }
+    
+    /* --- Pop-up Overlay --- */
+    #popupOverlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); z-index: 9999;
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    /* --- Pop-up Box --- */
+    .popup-box {
+      width: 80%; max-width: 800px;
+      background: linear-gradient(135deg, #808080 0%, #5a5959 100%); /* สีส้มทองแบบในรูป */
+      border: 4px solid #fff; border-radius: 15px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 50px rgba(0,0,0,0.5);
+      animation: zoomIn 0.4s ease-out;
+    }
+
+    /* ปุ่มปิด Pop-up */
+    .close-popup {
+      position: absolute; top: 10px; right: 15px;
+      font-size: 24px; color: white; cursor: pointer; font-weight: bold;
+      z-index: 10;
+    }
+
+    .popup-content {
+      padding: 40px; color: white; text-align: center;
+      display: flex; align-items: center; gap: 30px;
+    }
+
+    .popup-img-frame {
+      border: 5px solid #757575; border-radius: 50%; /* แก้ไขขอบสีรูป */
+      width: 250px; height: 250px; overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .popup-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .popup-text-side { flex: 1; }
+    .popup-text-side h1 { font-size: 28px; margin-bottom: 10px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+    .popup-text-side p { font-size: 18px; line-height: 1.6; margin: 5px 0; }
+
+    @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* --- สไตล์หน้าเว็บเดิม --- */
+    .top-bar { background: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; }
+    .logo-section { display: flex; align-items: center; }
+    .logo-section img { height: 60px; margin-right: 15px; }
+    .main-nav { background: #1a237e; color: white; padding: 12px 0; text-align: center; position: sticky; top: 0; z-index: 100; }
+    .main-nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 14px; }
+    .hero-banner { background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://via.placeholder.com/1920x600'); background-size: cover; padding: 40px 20px; text-align: center; }
+    .admission-title { font-size: 48px; color: #333; font-weight: bold; margin: 10px 0; }
+    .year-highlight { color: #fbc02d; font-size: 60px; }
+    .time-badge { background: red; color: white; padding: 5px 20px; border-radius: 5px; display: inline-block; font-size: 20px; }
+    .course-section { padding: 40px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .course-card { width: 300px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background: white; transition: 0.3s; }
+    .course-card:hover { transform: translateY(-10px); }
+    .card-img { height: 180px; background-size: cover; background-position: center; }
+    .card-content { padding: 15px; text-align: center; font-weight: bold; background: #555; color: white; }
+    .about-section { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 60px 5%; color: white; display: flex; align-items: center; gap: 40px; }
+    .grid-menu { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; }
+    .grid-item { height: 350px; background: rgba(255,255,255,0.1); border-radius: 5px; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 20px; border: 1px solid rgba(255,255,255,0.2); }
+    .grid-item span { font-size: 18px; font-weight: bold; z-index: 2; }
+  </style>
+</head>
+<body>
+
+  <div id="popupOverlay">
+    <div class="popup-box">
+      <div class="close-popup" onclick="hidePopup()">&times;</div>
+      <div class="popup-content">
+        <div class="popup-img-frame">
+          <img src="https://cms.kapook.com/uploads/tag/17/ID_16943_63b7c2cd568c9.jpg" alt="Royal Image">
+        </div>
+        <div class="popup-text-side">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Royal_Cypher_of_Prince_Dipangkorn.svg/250px-Royal_Cypher_of_Prince_Dipangkorn.svg.png " style="width:60px; margin-bottom: 10px;" alt="Portrait">
+
+          <h1>วันคล้ายวันประสูติ</h1>
+          <p>สมเด็จพระเจ้าลูกยาเธอ เจ้าฟ้าทีปังกรรัศมีโชติ มหาวชิโรตตมางกูร สิริวิบูลยราชกุมาร</p>
+          <p>วันที่ 29 เมษายน</p>
+          <p style="font-size: 14px; margin-top: 20px; font-weight: 300; opacity: 0.9;">
+           ขอพระองค์ทรงพระเจริญ<br>
+            -----------<br>
+            SchoolSkay
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <div class="logo-section">
+      <img src="https://lh3.googleusercontent.com/geougc/AF1QipPRv0VfI53SUFyNEal4Ti4aFPi8xQIBdTN91D92=h305-no" alt="E.TECH Logo">
+      <div>
+        <div style="color:#1a237e; font-weight:bold;">โรงเรียน สกาย</div>
+        <div style="font-size:12px;">EASTERN TECHNOLOGICAL COLLEGE (skay)</div>
+      </div>
+    </div>
+    <div class="social-icons">
+       <button style="background:#1a237e; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">สมัครเรียน Online</button>
+    </div>
+  </div>
+
+  <nav class="main-nav">
+    <a href="https://script.google.com/macros/s/AKfycbwfl3PBESdLagfM2pHoc4oXQDhEUhSvNunnKHG10PgZrEszJVUj6B78AoN0wZk5cozj/exec" class="menu-btn">หน้าแรก</a><a href="https://script.google.com/macros/s/AKfycbx6UHFPXaq-m0IG6Hy9CME-GNDR-enaLhrdHxfHpWomollTaypz0bxgX0ifbpGD8ek/exec" class="menu-btn">รู้จักเรา</a> <a href="https://www.google.com" class="menu-btn">สมัครเรียน</a> <a href="https://www.google.com" class="menu-btn">หลักสูตร</a> <a href="https://www.google.com" class="menu-btn">ติดต่อเรา</a>
+  </nav>
+
+  <div class="hero-banner">
+    <div class="admission-title">ยินดี <span class="year-highlight">ต้อนรับ 2569</span></div>
+    <div style="font-size: 24px; margin-bottom: 15px;">วันสำคัญในวันนี้</div>
+    <div class="time-badge">____________________________</div>
+  </div>
+//
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Royal_Monogram_of_Queen_Sirikit.svg"
+     style="width:60px; display:block; margin: 0 auto 10px auto;"
+     alt="Portrait">
+//
+**ประกาศสำคัญ:** สมเด็จพระนางเจ้าสิริกิติ์พระบรมราชินีนาถพระบรมราชชนนีหลวงเสด็จสู่สวรรคาลัยอันหาที่สุดมิได้ 
+
+//
+
+//
+<style>
+/* CSS: กำหนดรูปแบบของสไลด์ให้มาอยู่กึ่งกลาง */
+.slideshow-container {
+    max-width: 1000px; /* กำหนดความกว้างสูงสุดที่ต้องการ เช่น 1000px หรือ 80% */
+    position: relative;
+    margin: 40px auto; /* auto ที่ด้านซ้ายและขวาจะทำให้วัตถุอยู่กึ่งกลาง */
+    overflow: hidden;
+    border-radius: 10px; /* เพิ่มขอบมนให้สวยงาม (ใส่หรือไม่ก็ได้) */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* เพิ่มเงาให้ดูมีมิติ (ใส่หรือไม่ก็ได้) */
+}
+
+.mySlides {
+    display: none;
+    text-align: center; /* จัดรูปภาพภายในให้อยู่กลาง */
+}
+
+.mySlides img {
+    width: 100%; /* ให้รูปภาพขยายเต็ม container */
+    height: auto;
+    display: block; /* ลดช่องว่างใต้รูปภาพ */
+}
+</style>
+
+<div class="slideshow-container">
+
+  <div class="mySlides">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipP8-ftGvfzfEz9jkkH2259KkyJzBAT7RDb6WMm7=s1360-w1360-h1020-rw" alt="รูปภาพที่ 1">
+  </div>
+
+  <div class="mySlides">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipPxqUUuFCl-zsrBHIjnxOGO904-gDCb8X6ER_Ox=s1360-w1360-h1020-rw" alt="รูปภาพที่ 2">
+  </div>
+
+  <div class="mySlides">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipNouWoiKlcHY0yQGEY7kbvdy2zt6FCPl_aAz68N=s1360-w1360-h1020-rw" alt="รูปภาพที่ 3">
+  </div>
+
+  <div class="mySlides">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipNWnXf9n0IBZ_1i3nMwsja4jEMVKtCL2NXoAsOv=s1360-w1360-h1020-rw" alt="รูปภาพที่ 4">
+  </div>
+
+
+  <div class="mySlides">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipOk1-Zl7XIxCqxzQO24ROR0EdgUVXbHlG_362Hg=s1360-w1360-h1020-rw" alt="รูปภาพที่ 5">
+  </div>
+
+  <div class="mySlides">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipMzhhq0kbjaWodcK0DXVXqgE8OqMafFCVj9-pUC=s1360-w1360-h1020-rw" alt="รูปภาพที่ 6">
+  </div>
+
+
+</div>
+
+<script>
+// JAVASCRIPT: ทำให้รูปภาพเลื่อนเปลี่ยนได้
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  
+  // ซ่อนรูปภาพทั้งหมด
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  
+  // เลื่อนไปรูปถัดไป
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  
+  // แสดงรูปภาพปัจจุบัน
+  slides[slideIndex-1].style.display = "block";  
+  
+  // หน่วงเวลา 3 วินาที (3000 มิลลิวินาที) แล้วเรียกฟังก์ชันเดิมซ้ำ
+  setTimeout(showSlides, 3000); 
+}
+</script>
+...
+<style>
+.img-right {
+  width: 60px;
+  display: block;
+  margin-right: 20px; /* ระยะห่างจากขอบจอด้านขวา */
+  margin-bottom: 10px;
+}
+</style>
+...
+...
+<style>
+    
+ .button-group {
+  display: flex;
+  justify-content: flex-start; /* จัดกลุ่มชิดซ้าย (แต่เรียงขวาไปซ้าย) */
+  gap: 15px; /* ระยะห่างระหว่างปุ่ม */
+  flex-direction: row-reverse; /* เรียงจากขวาไปซ้าย */
+}
+
+
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  flex-direction: row-reverse;
+  margin: 20px; /* เพิ่มระยะห่างจากขอบจอ */
+}
+
+.btn-link {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 200;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+</style>
+
+<div class="button-group">
+  <a href="https://www.google.com" target="_blank" class="btn-link">
+    ศิษย์เก่า
+  </a>
+  <a href="https://www.youtube.com" target="_blank" class="btn-link">
+    บุคลากร
+  </a>
+  <a href="https://disornlaliw61-create.github.io/loginn/" target="_blank" class="btn-link">
+    ผู้ปกครอง
+  </a>
+  <a href="https://disornlaliw61-create.github.io/loginn/" target="_blank" class="btn-link">
+    นักเรียน
+  </a>
+  <a href="------------------------" target="_blank" class="btn-link">
+    คุณคือไคร→→
+  </a>
+</div>
+//
+  <div class="course-section">
+    <div class="course-card">
+      <div class="card-img" style="background-image: url('https://via.placeholder.com/300x200?text=ปวช.')"></div>
+      <div class="card-content">ปวช.</div>
+    </div>
+    <div class="course-card">
+      <div class="card-img" style="background-image: url('https://via.placeholder.com/300x200?text=ปวส.')"></div>
+      <div class="card-content">ปวส.</div>
+    </div>
+    <div class="course-card">
+      <div class="card-img" style="background-image: url('https://via.placeholder.com/300x200?text=Work')"></div>
+      <div class="card-content">ปวส. (สำหรับคนทำงาน)</div>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <div style="min-width: 200px;">
+      <h2 style="font-size: 32px;">รู้จัก อี.เทค</h2>
+      <p>วิทยาลัยเทคโนโลยีภาคตะวันออก</p>
+    </div>
+    <div class="grid-menu">
+      <div class="grid-item"><span>ประวัติความเป็นมา</span></div>
+      <div class="grid-item"><span>วิสัยทัศน์และพันธกิจ</span></div>
+      <div class="grid-item"><span>ตราสัญลักษณ์</span></div>
+      <div class="grid-item"><span>เพลงประจำสถาบัน</span></div>
+    </div>
+  </div>
+//
+
+//
+  <script>
+    // ฟังก์ชันสำหรับปิด Pop-up
+    function hidePopup() {
+      document.getElementById('popupOverlay').style.display = 'none';
+    }
+
+    // (Option) ถ้าต้องการให้ปิดเมื่อคลิกที่พื้นหลังสีดำ
+    window.onclick = function(event) {
+      const overlay = document.getElementById('popupOverlay');
+      if (event.target == overlay) {
+        hidePopup();
+      }
+    }
+  </script>
+
+</body>
+</html>
